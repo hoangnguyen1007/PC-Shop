@@ -1,7 +1,7 @@
-package repository;
+package com.cuahangpc.repository;
 
-import entity.BanPC;
-import entity.BanPCId;
+import com.cuahangpc.entity.BanPC;
+import com.cuahangpc.entity.BanPCId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

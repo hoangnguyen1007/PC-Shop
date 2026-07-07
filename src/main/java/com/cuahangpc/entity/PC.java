@@ -1,4 +1,4 @@
-package entity;
+package com.cuahangpc.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,18 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "KHACHHANG")
-public class KhachHang {
+public class PC {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaKH")
-    private long maKH;
-    @Column(name = "TenKH", nullable = false)
-    private String tenKH;
-    @Column(length = 10)
-    private String sdt;
+    @Column(name = "MaPC")
+    private long maPC;
+    @Column(name = "TenPC", nullable = false)
+    private String tenPC;
 }

@@ -1,4 +1,4 @@
-package entity;
+package com.cuahangpc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package repository;
+package com.cuahangpc.repository;
 
-import entity.LinhKien;
+import com.cuahangpc.entity.LinhKien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

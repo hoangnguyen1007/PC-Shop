@@ -1,7 +1,7 @@
-package repository;
+package com.cuahangpc.repository;
 
-import entity.CtdhId;
-import entity.Ctdh;
+import com.cuahangpc.entity.CtdhId;
+import com.cuahangpc.entity.Ctdh;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
