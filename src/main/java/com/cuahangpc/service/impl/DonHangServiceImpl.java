@@ -1,15 +1,14 @@
 package com.cuahangpc.service.impl;
 
-import com.cuahangpc.dto.CtdhRequestDTO;
-import com.cuahangpc.dto.DonHangRequestDTO;
-import com.cuahangpc.dto.DonHangResponeDTO;
+import com.cuahangpc.dto.request.CtdhRequestDTO;
+import com.cuahangpc.dto.request.DonHangRequestDTO;
+import com.cuahangpc.dto.respone.DonHangResponeDTO;
 import com.cuahangpc.entity.*;
 import com.cuahangpc.repository.BanPCRepository;
 import com.cuahangpc.repository.DonHangRepository;
 import com.cuahangpc.repository.KhachHangRepository;
 import com.cuahangpc.repository.PCRepository;
 import com.cuahangpc.service.DonHangService;
-import com.cuahangpc.service.KhachHangService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
-package com.cuahangpc.dto;
+package com.cuahangpc.dto.respone;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
