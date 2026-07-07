@@ -1,6 +1,6 @@
-package repository;
+package com.cuahangpc.repository;
 
-import entity.DonHang;
+import com.cuahangpc.entity.DonHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

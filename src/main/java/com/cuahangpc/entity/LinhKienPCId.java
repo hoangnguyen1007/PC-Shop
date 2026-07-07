@@ -1,4 +1,4 @@
-package entity;
+package com.cuahangpc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,19 +11,19 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BanPCId {
+public class LinhKienPCId {
     private long maPC;
-    private long maCH;
+    private long maLK;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        BanPCId banPCId = (BanPCId) o;
-        return maPC == banPCId.maPC && maCH == banPCId.maCH;
+        LinhKienPCId that = (LinhKienPCId) o;
+        return maPC == that.maPC && maLK == that.maLK;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(maPC, maCH);
+        return Objects.hash(maPC, maLK);
     }
 }
