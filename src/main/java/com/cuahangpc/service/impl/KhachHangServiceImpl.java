@@ -1,6 +1,7 @@
 package com.cuahangpc.service.impl;
 
 import com.cuahangpc.entity.KhachHang;
+import com.cuahangpc.exception.ResourceNotFoundException;
 import com.cuahangpc.repository.KhachHangRepository;
 import com.cuahangpc.service.KhachHangService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class KhachHangServiceImpl implements KhachHangService {
     public KhachHang getKhachHangById(long id)
     {
         return khachHangRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Khong tim thay khach hang!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay khach hang ID: " + id));
     }
 
     @Override

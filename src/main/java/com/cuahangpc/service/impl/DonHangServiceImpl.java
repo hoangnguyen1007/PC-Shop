@@ -4,6 +4,8 @@ import com.cuahangpc.dto.request.CtdhRequestDTO;
 import com.cuahangpc.dto.request.DonHangRequestDTO;
 import com.cuahangpc.dto.respone.DonHangResponeDTO;
 import com.cuahangpc.entity.*;
+import com.cuahangpc.exception.BusinessLogicException;
+import com.cuahangpc.exception.ResourceNotFoundException;
 import com.cuahangpc.repository.BanPCRepository;
 import com.cuahangpc.repository.DonHangRepository;
 import com.cuahangpc.repository.KhachHangRepository;
@@ -12,6 +14,7 @@ import com.cuahangpc.service.DonHangService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class DonHangServiceImpl implements DonHangService {
     public DonHangResponeDTO checkout(DonHangRequestDTO request)
     {
         KhachHang khachHang = khachHangRepository.findById(request.getMaKH())
-                .orElseThrow(() -> new RuntimeException("Khong tim thay khach hang!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay khach hang voi ID: " + request.getMaKH()));
         DonHang donHang = new DonHang();
         donHang.setNgayLap(LocalDate.now());
         donHang.setKhachHang(khachHang);
@@ -38,12 +41,12 @@ public class DonHangServiceImpl implements DonHangService {
         for(CtdhRequestDTO ctdhRequestDTO : request.getChiTietDonHang())
         {
             PC pc = pcRepository.findById(ctdhRequestDTO.getMaPC())
-                    .orElseThrow(() ->  new RuntimeException("Khong tim thay PC tuong ung"));
+                    .orElseThrow(() ->  new ResourceNotFoundException("Khong tim thay PC tuong ung"));
             BanPCId banPCId = new BanPCId(ctdhRequestDTO.getMaPC(), request.getMaCH());
             BanPC khoHang = banPCRepository.findById(banPCId)
-                    .orElseThrow(() -> new RuntimeException("Khong ton tai san pham!"));
+                    .orElseThrow(() -> new ResourceNotFoundException("Khong ton tai san pham!"));
             if(khoHang.getSlTonKho() <ctdhRequestDTO.getSoLuong())
-                throw new RuntimeException("Khong du so luong ton kho!");
+                throw new BusinessLogicException("Khong du so luong ton kho cho maPC: " + pc.getMaPC());
             khoHang.setSlTonKho(khoHang.getSlTonKho() - ctdhRequestDTO.getSoLuong());
             banPCRepository.save(khoHang);
             Ctdh ctdh = new Ctdh();
