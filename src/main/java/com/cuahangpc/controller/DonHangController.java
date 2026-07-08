@@ -3,6 +3,7 @@ package com.cuahangpc.controller;
 import com.cuahangpc.dto.request.DonHangRequestDTO;
 import com.cuahangpc.dto.respone.DonHangResponeDTO;
 import com.cuahangpc.service.DonHangService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DonHangController {
     private final DonHangService donHangService;
     @PostMapping("/checkout")
-    public ResponseEntity<DonHangResponeDTO> checkout(@RequestBody DonHangRequestDTO dto)
+    public ResponseEntity<DonHangResponeDTO> checkout(@Valid @RequestBody DonHangRequestDTO dto)
     {
         DonHangResponeDTO responeDTO = donHangService.checkout(dto);
         return new ResponseEntity<>(responeDTO, HttpStatus.CREATED);

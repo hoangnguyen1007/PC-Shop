@@ -1,15 +1,15 @@
 package com.cuahangpc.dto.request;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Data
 public class CtdhRequestDTO {
-    @NotNull
+    @NotNull(message = "Ma PC khong duoc bo trong")
     private long maPC;
-    @Min(1)
+    @Min(value = 1, message = "So luong phai lon hon 0")
     private int soLuong;
-    @Min(0)
+    @Min(value = 0, message = "Don gia khong duoc am")
     private int donGia;
 }
