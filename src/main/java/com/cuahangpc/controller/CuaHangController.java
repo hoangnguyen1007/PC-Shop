@@ -1,5 +1,7 @@
 package com.cuahangpc.controller;
 
+import com.cuahangpc.dto.request.CuaHangRequsetDTO;
+import com.cuahangpc.dto.respone.CuaHangResponseDTO;
 import com.cuahangpc.entity.CuaHang;
 import com.cuahangpc.service.CuaHangService;
 import com.cuahangpc.service.KhachHangService;
@@ -18,22 +20,22 @@ public class CuaHangController {
     private final KhachHangService khachHangService;
 
     @GetMapping
-    public ResponseEntity<List<CuaHang>> getAll()
+    public ResponseEntity<List<CuaHangResponseDTO>> getAll()
     {
         return ResponseEntity.ok(cuaHangService.getAllCuaHang());
     }
-    @GetMapping("/id")
-    public ResponseEntity<CuaHang> getById(@PathVariable long id)
+    @GetMapping("/{id}")
+    public ResponseEntity<CuaHangResponseDTO> getById(@PathVariable long id)
     {
         return ResponseEntity.ok(cuaHangService.getCuaHangById(id));
     }
     @PostMapping
-    public ResponseEntity<CuaHang> create(@RequestBody CuaHang cuaHang)
+    public ResponseEntity<CuaHangResponseDTO> create(@RequestBody CuaHangRequsetDTO cuaHang)
     {
         return new ResponseEntity<>(cuaHangService.createCuaHang(cuaHang), HttpStatus.CREATED);
     }
     @PutMapping("/id")
-    public ResponseEntity<CuaHang> update(@PathVariable long id, @RequestBody CuaHang cuaHang)
+    public ResponseEntity<CuaHangResponseDTO> update(@PathVariable long id, @RequestBody CuaHangRequsetDTO cuaHang)
     {
         return ResponseEntity.ok(cuaHangService.updateCuaHang(id, cuaHang));
     }

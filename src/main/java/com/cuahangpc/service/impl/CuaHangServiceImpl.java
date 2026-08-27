@@ -1,9 +1,12 @@
 package com.cuahangpc.service.impl;
 
+import com.cuahangpc.dto.request.CuaHangRequsetDTO;
+import com.cuahangpc.dto.respone.CuaHangResponseDTO;
 import com.cuahangpc.entity.CuaHang;
 import com.cuahangpc.exception.ResourceNotFoundException;
 import com.cuahangpc.repository.CuaHangRepository;
 import com.cuahangpc.service.CuaHangService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Max;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,35 +19,53 @@ import java.util.List;
 public class CuaHangServiceImpl implements CuaHangService {
     private final CuaHangRepository cuaHangRepository;
     @Override
-    public List<CuaHang> getAllCuaHang()
+    @Transactional
+    public List<CuaHangResponseDTO> getAllCuaHang()
     {
-        return cuaHangRepository.findAll();
+        return cuaHangRepository.findAll()
+                .stream()
+                .map(CuaHangResponseDTO::fromEntity)
+                .toList();
     }
-    @Override
-    public CuaHang getCuaHangById(long id)
+    private CuaHang findEntityById(long id)
     {
         return cuaHangRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay khach hang!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay cua hang co ID: " + id));
     }
     @Override
-    public CuaHang createCuaHang(CuaHang cuaHang)
+    @Transactional
+    public CuaHangResponseDTO getCuaHangById(long id)
     {
-        return cuaHangRepository.save(cuaHang);
+       CuaHang cuaHang = findEntityById(id);
+       return CuaHangResponseDTO.fromEntity(cuaHang);
     }
     @Override
-    public CuaHang updateCuaHang(long id, CuaHang cuaHang)
+    @Transactional
+    public CuaHangResponseDTO createCuaHang(CuaHangRequsetDTO cuaHang)
     {
-        CuaHang ch = cuaHangRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Khong tim thay khach hang!"));
+        CuaHang cuaHang1 = new CuaHang();
+        cuaHang1.setTenCH(cuaHang.getTenCH());
+        cuaHang1.setSdt(cuaHang.getSdt());
+        cuaHang1.setDiaChi(cuaHang.getDiaChi());
+        CuaHang saved = cuaHangRepository.save(cuaHang1);
+        return CuaHangResponseDTO.fromEntity(saved);
+    }
+    @Override
+    @Transactional
+    public CuaHangResponseDTO updateCuaHang(long id, CuaHangRequsetDTO cuaHang)
+    {
+        CuaHang ch = findEntityById(id);
         ch.setSdt(cuaHang.getSdt());
         ch.setDiaChi(cuaHang.getDiaChi());
         ch.setTenCH(cuaHang.getTenCH());
-        return cuaHangRepository.save(ch);
+        CuaHang saved =  cuaHangRepository.save(ch);
+        return CuaHangResponseDTO.fromEntity(saved);
     }
     @Override
+    @Transactional
     public void deleteCuaHang(long id)
     {
-        CuaHang ch = getCuaHangById(id);
+        CuaHang ch = findEntityById(id);
         cuaHangRepository.delete(ch);
     }
 }
